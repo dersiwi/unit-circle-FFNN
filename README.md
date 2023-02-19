@@ -19,9 +19,9 @@ Furthermore, after the network is setup it really can be trained to solve <i>any
 ## Architecture 
 The network consists of two layers, not counting the input layer. 
 
-<center>
-<img src="./NetworkArchitecture.svg">
-</center>
+<div align="center">
+<img src="https://github.com/dersiwi/unit-circle-FFNN/blob/master/images/netwrkArchitecture_colored.svg">
+</div>
 The network architecture is arbitrary, the amout of hidden layers and the size of each hidden layer can be chosen at random. Only the input layer defines how many inputs the network has, and the output layer the amount of outputs.
 
 
