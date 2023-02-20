@@ -111,7 +111,7 @@ $$
 } 
 \frac{\partial a_1}{\partial \theta_1}
 \quad \text{and} \quad 
-\frac{\partial J}{\partial \theta_1} = 
+\frac{\partial J}{\partial b_1} = 
 \textcolor{violet}{
     \frac{\partial J}{\partial y_{p}} 
     \frac{\partial y_{p}}{\partial a_2} } 
@@ -139,7 +139,7 @@ $$
 \textcolor{violet}{\frac{\partial J}{\partial a_1}}  
 \frac{\partial a_1}{\partial \theta_1}
 \quad \text{and} \quad 
-\frac{\partial J}{\partial \theta_1} = 
+\frac{\partial J}{\partial b_1} = 
 \textcolor{violet}{\frac{\partial J}{\partial a_1}} 
 \frac{\partial a_1}{\partial b_1}
 $$
