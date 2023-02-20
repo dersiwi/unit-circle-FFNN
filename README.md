@@ -2,13 +2,6 @@
 Train a neural network to detect, if a point $p = (x,y)^\top \in [0,1]^2$ lies within the unit circle or not. Of course this problem is very easy to decide by using the formula :
 $$\sqrt{x^2 + y^2} \leq 1$$
 
-### Problem input
- - points $p$ for our neural network:
-    $$p = \begin{pmatrix}
-        x\\y
-    \end{pmatrix}, \quad x,y \in[0,1]$$
- 
- - Radius of the circle $r = 1$
 
 ### Why?
 This problem might seem like it is a bit overkill to be solved by 'AI', but the main reason is to go through the process of setting up the network by hand, understanding how a feed forward neural network works, learning gradient descent and working out the necessary gradients (by hand). <br>
@@ -26,7 +19,7 @@ The network architecture is arbitrary, the amout of hidden layers and the size o
 
 
 ## Forward pass
-A forward pass refers to the calclation process of the network. In this network, this works as follows : 
+A forward pass refers to the calculation process of the network. In this network, this works as follows : 
 
 $$y_{prediciton}  =\sigma(\theta_2 ^\top \sigma(\theta_1 x + b_1) + b_2)$$
 In order to understand that better here is a breakdown
