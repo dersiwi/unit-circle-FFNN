@@ -1,11 +1,10 @@
 # Problem description
-Train a neural network to detect, if a point $p = (x,y)^\top \in [0,1]^2$ lies within the unit circle or not. Of course this problem is very easy to decide by using the formula :
+Train a neural network to detect, if a point $p = (x,y)^\top \in [0,1]^2$ lies within the unit circle or not. Of course this problem is very easy to solve by using the formula :
 $$\sqrt{x^2 + y^2} \leq 1$$
 
 
 ### Why?
-This problem might seem like it is a bit overkill to be solved by 'AI', but the main reason is to go through the process of setting up the network by hand, understanding how a feed forward neural network works, learning gradient descent and working out the necessary gradients (by hand). <br>
-Furthermore, after the network is setup it really can be trained to solve <i>any</i> problem that that has two parameters as inputs (sort of), given the correcet dataset.
+Manually implement the network, backpropagation algorithm and be able to play around with different data-set distributions, etc. without using a framework like TensorFlow. Especially computing the derivatives by hand and implementing those is what i wanted to accomplish here.
 
 # The network
 
@@ -42,40 +41,37 @@ In order to understand that better here is a breakdown
    3. Multiply the vector $h_1$ with the second weights vector $\theta_2 \in \mathbb{R}^{4}$ and add the bias scalar $b_2 \in \mathbb{R}$:
    $$a_2 = \theta_2^\top h_1 + b_2=\theta_2^\top \sigma(\theta_1 x) + b_2\in \mathbb{R}$$
 
-   4. Apply $\sigma$ function one more time to get the final prediciton of the network:
+   4. Apply $\sigma$ function one more time to get the final prediction of the network:
    
    $$ y_{prediciton} = \sigma(a_2) = \sigma(\theta_2 ^\top \sigma(\theta_1 x + b_1) + b_2)$$
 
 ### Interpreting $y_{prediciton}$
 In this particular example, given a point $p = (x,y)$ the output $y_{prediction}$ is the networks estimation of how likely it is for that point $p$ to be inside the unit circle.
-<br>
-This of course is dependent on the labeling of the data.
-
 
 ## Training the network
-Training the network means, setting the weights and biases stored in $\theta_1, \theta_2, b_1, b_2$. Now how do we do that? <br>
+Training the network means, setting the weights and biases stored in $\theta_1, \theta_2, b_1, b_2$. This is done by using the backpropagation algorithm. <br>
 
 ### Initialization
 
-Of course without any training or testing there is no way to know good values for either $\theta_1, \theta_2, b_1, b_2$, so an easy solution (in the beginning) is just to initialize all values with random numbers in the range of $[0,1]$. 
+Of course without any training or testing there is no way to know adequate values for either $\theta_1, \theta_2, b_1, b_2$. One possible solition is to just use random numbers - in this case in the range of $[0,1]$. 
 
 ### The loss-function
 The loss function $J$ describes a funciton that takes $m$ guesses by the network and sums up their error squared, also called the mean-squared-error-loss:
 $$J = \frac{1}{m} \sum_i (y_{pred} - y_i)^2$$
 
-where $m$ is the amount of training points, $y_{pred}$ is the prediction of the network, given input $x_i$ and $y_i$ is the correct labeling of the datapoint:
+where $m$ is the amount of training points, $y_{pred}$ is the prediction of the network given input $x_i$ and $y_i$ is the correct labeling of the datapoint:
 $$y_i = 1 \Leftrightarrow \sqrt{x^2 + y^2} \leq 1$$
 otherwise, $y_i = 0$. <br>
-$y_i$ is called the label of the training data $x_i$ because it provides the corrext slution - meaining it tells us, if $x_i$ is inside or outside the circle.
+$y_i$ is called the label of the training point $x_i$ because it provides the correct labeling - meaining it tells us, if $x_i$ is inside or outside the circle.
 
 ### Gradient descent 
 
-To set $\theta_1, \theta_2$ and $b_1, b_2$ we can use our loss funciton, which tells us how 'bad' the neural network currently performs. More precisely - our netowrk performing good is directly equivalent to the loss funciton being minimal. So thats what we do; we <ins>minimize</ins> the loss function $J$. <br>
+To set $\theta_1, \theta_2$ and $b_1, b_2$ we can use our loss funciton, which tells us how 'bad' the neural network currently performs. More precisely - our netowrk performing well is directly equivalent to the loss funciton being minimal. So <ins>minimizing</ins> the loss function $J$ is what is necessary in order to train the network. <br>
 
 The method we want to do this with is called <i>gradient descent</i>.  <br>
-Because $J$ is so complex, it is impossible to solve for the global minimum directly. Gradient descent basically walks in the direction of a mininmum, by calculating the gradients 
+Because $J$ is so complex, it is impossible to solve for the global minimum directly. Gradient descent basically walks in the direction of a mininmum by calculating the gradients 
 $$\frac{\partial J}{\partial \theta_1} \quad \text{ and } \quad \frac{\partial J}{\partial \theta_2}$$
-and subtracting them, along with a multiplier $\alpha$  from $\theta_1$ and $\theta_2$:
+and subtracting them, along with a multiplier $\alpha$, called the learning rate from $\theta_1$ and $\theta_2$:
 
 $$\theta_1 = \theta_1 - \alpha\frac{\partial J}{\partial \theta_1} \quad 
 \text{ and } \quad 
@@ -144,7 +140,7 @@ $$
 \frac{\partial a_1}{\partial b_1}
 $$
 
-That being cleaned up, here are the reappearing derivatives: 
+Reappearing derivatives: 
 
 $$
 \textcolor{turquoise}{\frac{\partial J}{\partial a_2}} = 2(y_{pred} - y) * \sigma'(a_2), \quad 
